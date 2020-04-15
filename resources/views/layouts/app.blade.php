@@ -82,9 +82,10 @@
                                         <a class="nav-link" href="{{ url('/daftarrelawanfjvixcplkrbprsci') }}">Daftar Relawan</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('/daftarpengaduan12345') }}">Pengaduan<span class="badge badge-pill badge-info">24</span>
-
-</a>
+                                        <a class="nav-link" href="{{ url('/daftarpengaduan12345') }}">Pengaduan<span class="badge badge-pill badge-info">24</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('/pengaturan') }}">Pengaturan</a>
                                     </li>
                                 @endif
 

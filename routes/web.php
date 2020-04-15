@@ -60,6 +60,10 @@ Route::get('petakanpemilih/{id}/{status}','PetakanPemilihController@updateStatus
 //tambah data pemilih
 Route::post('petakanpemilih/tambahData','PetakanPemilihController@tambahData')->middleware('auth');
 
+//Route pengaturan aplikasi
+Route::get('pengaturan','PengaturanAplikasiController@index')->middleware('auth');
+Route::post('pengaturan/create','PengaturanAplikasiController@create')->middleware('auth');
+
 //Uji coba redis
 Route::get('/pemilih_cache', 'PetakanPemilihController@getPemilihWithCache');
 Route::get('/pemilih_query', 'PetakanPemilihController@getPemilihWithQuery');
