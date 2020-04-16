@@ -61,6 +61,7 @@ Route::post('petakanpemilih/tambahData','PetakanPemilihController@tambahData')->
 //Route pengaturan aplikasi
 Route::get('pengaturan','PengaturanAplikasiController@index')->middleware('auth');
 Route::post('pengaturan/create','PengaturanAplikasiController@create')->middleware('auth');
+Route::post('pengaturan/createGaleri','PengaturanAplikasiController@createGaleri')->middleware('auth');
 
 //Uji coba redis
 Route::get('/pemilih_cache', 'PetakanPemilihController@getPemilihWithCache');

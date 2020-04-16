@@ -6,11 +6,11 @@
 
 @section('content')
     <div class=”container”>
-        @if(\Session::has('error'))
+        {{-- @if(\Session::has('error'))
             <div class="alert alert-danger">
                 {{\Session::get('error')}}
             </div>
-        @endif
+        @endif --}}
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -57,7 +57,7 @@
                                             <img id="preview_foto_beranda_1" src="{{ asset('data_file/'.$data->foto_beranda_1) }}" alt="preview image" style="max-height: 150px;">
                                         </div>
                                     @endif
-                                    <input type="file" value="" name="foto_beranda_1" class="form-control-file" id="foto_beranda_1">
+                                    <input type="file" name="foto_beranda_1" class="form-control-file" id="foto_beranda_1">
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_beranda_2">Foto Beranda 2</label>
@@ -173,44 +173,44 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="card mt-3">
                     <div class="card-header"><b>Galeri</b></div>
                     <div class="row mt-3">
                         <div class="col-md-10 offset-1 mb-3">
-                            <form method="POST" action="{{ url('pengaturan/createGaleri') }}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <div id="scroll">
-                                    @if ($message = Session::get('success'))
-                                        <div class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>	
-                                                <strong>{{ $message }}</strong>
-                                        </div>
-                                    @endif      
-                                    @if ($message = Session::get('error'))
-                                        <div class="alert alert-error alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>	
-                                                <strong>{{ $message }}</strong>
-                                        </div>
-                                    @endif   
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif  
-                                </div>
-                                <div class="form-group">
-                                    <label for="galeri">Upload Foto</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_galeri" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                            <form method="post" action="{{ url('pengaturan/createGaleri') }}" enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                @if ($message = Session::get('sukses'))
+                                    <div class="alert alert-success alert-block">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>	
+                                            <strong>{{ $message }}</strong>
                                     </div>
-                                    <input type="file" value="" name="galeri" class="form-control-file" id="galeri">
+                                @endif      
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif  
+                                <div class="input-group control-group" id="tambah">
+                                    <input type="file" name="filenames[]" class="form-control">
+                                    <div class="input-group-btn"> 
+                                        <button class="btn btn-success" id="tombol-tambah" type="button"><i></i>Tambah</button>
+                                    </div>
                                 </div>
-                                <input type="submit" class="btn btn-lg btn-success" value="Simpan">
-                            </form>         
+                                <div class="clone">
+                                    <div class="input-group control-group hapus-section" id="hapus">
+                                        <input type="file" name="filenames[]" class="form-control">
+                                        <div class="input-group-btn"> 
+                                            <button class="btn btn-danger" type="button"><i></i>Hapus</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success" style="margin-top:10px">Submit</button>
+                            </form>      
                         </div>
                     </div>
                 </div>
@@ -231,6 +231,16 @@
                 }
             });
 
+            //Menampilkan input file di galeri
+            var hapus = $(".clone").html();
+            $("#tombol-tambah").click(function(){ 
+                $("#tambah").after(hapus);
+            });
+            $("body").on("click",".btn-danger",function(){ 
+                $(this).parents("#hapus").remove();
+            });
+
+            //Menampilkan preview foto
             $('#foto_beranda_1').change(function(){
                 let reader = new FileReader();
                 reader.onload = (e) => { 

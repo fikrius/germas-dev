@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Galeri;
 use App\Pengaturan_aplikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -191,6 +192,33 @@ class PengaturanAplikasiController extends Controller
         
     }
 
+    public function createGaleri(Request $request){
+        $this->validate($request, [
+            // 'filenames' => 'required|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'filenames' => 'required',
+            'filenames.*' => 'mimes:jpeg,png,jpg,gif,svg|max:10000'
+        ]);
+        
+        if($request->hasFile('filenames')){
+            foreach ($request->file('filenames') as $file) {
+                //Ambil nama file
+                $nama = time()."-".$file->getClientOriginalName();
     
+                //Pindah file foto ke lokal
+                $file->move('data_file/galeri/', $nama);
+    
+                //Memasukkan nama nama file ke dalam array
+                // $arrNama[] = $nama;
+
+                //Insert nama nama file ke database
+                $galeri = new Galeri;
+                $galeri->filename = $nama;
+                $galeri->save();
+            }
+        }
+
+        return redirect('pengaturan')->with('sukses','Upload foto galeri berhasil');
+
+    }
 
 }
