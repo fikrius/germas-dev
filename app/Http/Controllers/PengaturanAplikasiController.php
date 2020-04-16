@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Validator;
 class PengaturanAplikasiController extends Controller
 {
     public function index(){
-        return view('fiturAdmin.pengaturan');
+        $data = Pengaturan_aplikasi::latest()->first();
+        return view('fiturAdmin.pengaturan')->withData($data);
     }
 
     public function savePhotoToDB($str1, $col1, $str2, $col2, $str3, $col3, $str4, $col4, $str5, $col5, $str){

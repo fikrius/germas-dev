@@ -17,7 +17,7 @@
                     <div class="card-header"><b>Pengaturan Aplikasi</b></div>
                     <div class="row mt-3">
                         <div class="col-md-10 offset-1 mb-3">
-                            <form method="POST" action="{{ url('pengaturan/create') }}" enctype="multipart/form-data">
+                            <form id="form-pengaturan" method="POST" action="{{ url('pengaturan/create') }}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div id="scroll">
                                     @if ($message = Session::get('success'))
@@ -44,99 +44,129 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_aplikasi">Nama Aplikasi</label>
-                                    <input type="text" value="" name="nama_aplikasi" class="form-control" id="nama_aplikasi" placeholder="Nama Aplikasi">
+                                    <input type="text" value="{{ $data->nama_aplikasi }}" name="nama_aplikasi" class="form-control" id="nama_aplikasi" placeholder="Nama Aplikasi">
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_beranda_1">Foto Beranda 1</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_foto_beranda_1" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
-                                    </div>
+                                    @if ($data->foto_beranda_1 == null)
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_1" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @else 
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_1" src="{{ asset('data_file/'.$data->foto_beranda_1) }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @endif
                                     <input type="file" value="" name="foto_beranda_1" class="form-control-file" id="foto_beranda_1">
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_beranda_2">Foto Beranda 2</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_foto_beranda_2" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
-                                    </div>
+                                    @if ($data->foto_beranda_2 == null)
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_2" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @else 
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_2" src="{{ asset('data_file/'.$data->foto_beranda_2) }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @endif
                                     <input type="file" value="" name="foto_beranda_2" class="form-control-file" id="foto_beranda_2">
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_beranda_3">Foto Beranda 3</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_foto_beranda_3" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
-                                    </div>
+                                    @if ($data->foto_beranda_1 == null)
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_3" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @else 
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_beranda_3" src="{{ asset('data_file/'.$data->foto_beranda_3) }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @endif
                                     <input type="file" value="" name="foto_beranda_3" class="form-control-file" id="foto_beranda_3">
                                 </div>
                                 <div class="form-group">
                                     <label for="caption_foto_beranda_1">Caption Foto Beranda 1</label>
-                                    <input type="text" value="" name="caption_foto_beranda_1" class="form-control" id="caption_foto_beranda_1">
+                                    <input type="text" value="{{ $data->caption_foto_beranda_1 }}" name="caption_foto_beranda_1" class="form-control" id="caption_foto_beranda_1">
                                 </div>
                                 <div class="form-group">
                                     <label for="caption_foto_beranda_2">Caption Foto Beranda 2</label>
-                                    <input type="text" value="" name="caption_foto_beranda_2" class="form-control" id="caption_foto_beranda_2">
+                                    <input type="text" value="{{ $data->caption_foto_beranda_2 }}" name="caption_foto_beranda_2" class="form-control" id="caption_foto_beranda_2">
                                 </div>
                                 <div class="form-group">
                                     <label for="caption_foto_beranda_3">Caption Foto Beranda 3</label>
-                                    <input type="text" value="" name="caption_foto_beranda_3" class="form-control" id="caption_foto_beranda_3">
+                                    <input type="text" value="{{ $data->caption_foto_beranda_3 }}" name="caption_foto_beranda_3" class="form-control" id="caption_foto_beranda_3">
                                 </div>
                                 <div class="form-group">
                                     <label for="visi">Visi</label>
-                                    <input type="text" value="" name="visi" class="form-control" id="visi">
+                                    <input type="text" value="{{ $data->visi }}" name="visi" class="form-control" id="visi">
                                 </div>
                                 <div class="form-group">
                                     <label for="misi">Misi</label>
-                                    <textarea class="form-control" name="misi" id="misi"></textarea>
+                                    <textarea class="form-control" name="misi" id="misi">{{ $data->misi }}</textarea>
                                     {{-- <input type="text" value="" name="misi" class="form-control" id="misi"> --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_profil">Foto Profil</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_foto_profil" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
-                                    </div>
+                                    @if ($data->foto_profil == null)
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_profil" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @else 
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_profil" src="{{ asset('data_file/'.$data->foto_profil) }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @endif
                                     <input type="file" value="" name="foto_profil" class="form-control-file" id="foto_profil">
                                 </div>
                                 <div class="form-group">
                                     <label for="data_pribadi">Data Pribadi</label>
-                                    <textarea name="data_pribadi" id="data_pribadi" class="form-control"></textarea>
+                                    <textarea name="data_pribadi" id="data_pribadi" class="form-control">{{ $data->data_pribadi }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_keluarga">Data Keluarga</label>
-                                    <textarea name="data_keluarga" id="data_keluarga" class="form-control"></textarea>
+                                    <textarea name="data_keluarga" id="data_keluarga" class="form-control">{{ $data->data_keluarga }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pendidikan">Data Riwayat Pendidikan</label>
-                                    <textarea name="data_riwayat_pendidikan" id="data_riwayat_pendidikan" class="form-control"></textarea>
+                                    <textarea name="data_riwayat_pendidikan" id="data_riwayat_pendidikan" class="form-control">{{ $data->data_riwayat_pendidikan }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pekerjaan">Data Riwayat Pekerjaan</label>
-                                    <textarea name="data_riwayat_pekerjaan" id="data_riwayat_pekerjaan" class="form-control"></textarea>
+                                    <textarea name="data_riwayat_pekerjaan" id="data_riwayat_pekerjaan" class="form-control">{{ $data->data_riwayat_pekerjaan }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pengabdian_masyarakat">Data Riwayat Pengabdian Masyarakat</label>
-                                    <textarea name="data_riwayat_pengabdian_masyarakat" id="data_riwayat_pengabdian_masyarakat" class="form-control"></textarea>
+                                    <textarea name="data_riwayat_pengabdian_masyarakat" id="data_riwayat_pengabdian_masyarakat" class="form-control">{{ $data->data_riwayat_pengabdian_masyarakat }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_tengah">Foto Tengah</label>
-                                    <div class="col-md-12 mb-3">
-                                        <img id="preview_foto_tengah" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
-                                    </div>
+                                    @if ($data->foto_tengah == null)
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_tengah" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @else 
+                                        <div class="col-md-12 mb-3">
+                                            <img id="preview_foto_tengah" src="{{ asset('data_file/'.$data->foto_tengah) }}" alt="preview image" style="max-height: 150px;">
+                                        </div>
+                                    @endif
                                     <input type="file" value="" name="foto_tengah" class="form-control-file" id="foto_tengah">
                                 </div>
                                 <div class="form-group">
                                     <label for="caption_foto_tengah">Caption Foto Tengah</label>
-                                    <input type="text" value="" name="caption_foto_tengah" class="form-control" id="caption_foto_tengah">
+                                    <input type="text" value="{{ $data->caption_foto_tengah }}" name="caption_foto_tengah" class="form-control" id="caption_foto_tengah">
                                 </div>
                                 <div class="form-group">
                                     <label for="caption_lain">Caption Lain</label>
-                                    <input type="text" value="" name="caption_lain" class="form-control" id="caption_lain">
+                                    <input type="text" value="{{ $data->caption_lain }}" name="caption_lain" class="form-control" id="caption_lain">
                                 </div>
                                 <div class="form-group">
                                     <label for="telepon">Telepon</label>
-                                    <input type="text" value="" name="telepon" class="form-control" id="telepon">
+                                    <input type="text" value="{{ $data->telepon }}" name="telepon" class="form-control" id="telepon">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" value="" name="email" class="form-control" id="email">
+                                    <input type="email" value="{{ $data->email }}" name="email" class="form-control" id="email">
                                 </div>
                                 <input type="submit" class="btn btn-lg btn-success" value="Simpan">
                             </form>         
