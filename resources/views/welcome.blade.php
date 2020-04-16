@@ -58,10 +58,13 @@
                                     </button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="{{ url('/') }}">
-                  <h1><span style="color: yellow;">G</span>ERMAS</h1>
-                  <!-- Uncomment below if you prefer to use an image logo -->
-                  <!-- <img src="img/logo.png" alt="" title=""> -->
-                                </a>
+                  @php
+                    $first_word = str_split($data->nama_aplikasi);
+                    $array_word = explode($first_word[0],$data->nama_aplikasi);
+                    $last_word = $array_word[1];    
+                  @endphp
+                  <h1><span style="color: yellow;">{{ strtoupper($first_word[0]) }}</span>{{ strtoupper($last_word) }}</h1>
+                </a>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
@@ -78,19 +81,6 @@
                   <li>
                     <a class="page-scroll" href="{{ url('/pengaduan') }}">Pengaduan</a>
                   </li>
-                  {{-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Drop Down<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href=# >Drop Down 1</a></li>
-                      <li><a href=# >Drop Down 2</a></li>
-                    </ul> 
-                  </li>
-
-                  <li>
-                    <a class="page-scroll" href="#blog">Blog</a>
-                  </li>
-                  <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                  </li> --}}
                 </ul>
               </div>
               <!-- navbar-collapse -->
@@ -108,12 +98,9 @@
   <div id="home" class="slider-area">
     <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
-        {{-- <img src="{{ asset('1.jpeg') }}" alt="" title="#slider-direction-1" />
-        <img src="{{ asset('10.jpeg') }}" alt="" title="#slider-direction-2" />
-        <img src="{{ asset('15.jpeg') }}" alt="" title="#slider-direction-3" /> --}}
-        <img src="{{ asset('17.jpeg') }}" alt="" title="#slider-direction-4" />
-        <img src="{{ asset('21.jpeg') }}" alt="" title="#slider-direction-5" />
-        <img src="{{ asset('22.jpeg') }}" alt="" title="#slider-direction-6" />
+        <img src="{{ asset('data_file/'.$data->foto_beranda_1) }}" alt="" title="#slider-direction-5" />
+        <img src="{{ asset('data_file/'.$data->foto_beranda_2) }}" alt="" title="#slider-direction-4" />
+        <img src="{{ asset('data_file/'.$data->foto_beranda_3) }}" alt="" title="#slider-direction-6" />
       </div>
 
       <!-- direction 4 -->
@@ -127,11 +114,10 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">Bersama Agus Meger Bagus</h1>
+                  <h1 class="title2">{{ $data->caption_foto_beranda_1 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                  {{-- <a class="ready-btn right-btn page-scroll" href="#services">See Services</a> --}}
                   <a class="ready-btn page-scroll" href="#about">Visi Misi</a>
                 </div>
               </div>
@@ -151,11 +137,10 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">Bersih dan Berwibawa</h1>
+                  <h1 class="title2">{{ $data->caption_foto_beranda_2 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                  {{-- <a class="ready-btn right-btn page-scroll" href="#services">See Services</a> --}}
                   <a class="ready-btn page-scroll" href="#about">Visi Misi</a>
                 </div>
               </div>
@@ -175,11 +160,10 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">Bersama Agus Meger Bagus</h1>
+                  <h1 class="title2">{{ $data->caption_foto_beranda_3 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                  {{-- <a class="ready-btn right-btn page-scroll" href="#services">See Services</a> --}}
                   <a class="ready-btn page-scroll" href="#about">Visi Misi</a>
                 </div>
               </div>
@@ -207,7 +191,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="well-left">
             <div class="single-well">
-               <img src="{{ asset('profil.png') }}" alt="foto profil">                        
+               <img src="{{ asset('data_file/'.$data->foto_profil) }}" alt="foto profil">                        
             </div>
           </div>
         </div>
@@ -218,12 +202,13 @@
               
                 <h4 class="sec-head">VISI</h4>
               <p>
-                MEWUJUDKAN DESA MEGER YANG SEJAHTERA DAN BERDAYA SAING
+                {{ nl2br($data->visi) }}
               </p>
 
               <h4 class="sec-head">MISI</h4>
               <ul>
-                <li>
+                <p>{!! nl2br($data->misi) !!}</p>
+                {{-- <li>
                   <i class="fa fa-check"></i> Mewujudkan sumber daya manusia yang cerdas, sehat dan bermartabat
                 </li>
                 <li>
@@ -246,7 +231,7 @@
                 </li>
                 <li>
                   <i class="fa fa-check"></i> Mewujudkan lingkungan permukiman yang bersih , sehat, dan indah
-                </li>
+                </li> --}}
               </ul>
             </div>
           </div>
@@ -281,7 +266,8 @@
                 </div>
                 <div id="check7" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <table>
+                    {!! nl2br($data->data_pribadi) !!}
+                    {{-- <table>
                         <tr>
                             <td>Nama Lengkap</td>
                             <td>:</td>
@@ -302,7 +288,7 @@
                             <td>:</td>
                             <td>MEGER RT 2 RW 2, MEGER, CEPER, KLATEN</td>
                         </tr>
-                    </table>
+                    </table> --}}
                   </div>
                 </div>
               </div>
@@ -317,7 +303,8 @@
                 </div>
                 <div id="check1" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <table>
+                    {!! nl2br($data->data_keluarga) !!}
+                    {{-- <table>
                         <tr>
                             <td>Nama Istri</td>
                             <td>:</td>
@@ -344,7 +331,7 @@
                             <td>:</td>
                             <td>SUMPENO (almarhum)</td>
                         </tr>
-                    </table>
+                    </table> --}}
                   </div>
                 </div>
               </div>
@@ -359,7 +346,8 @@
                 </div>
                 <div id="check2" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <table>
+                    {!! nl2br($data->data_riwayat_pendidikan) !!}
+                    {{-- <table>
                         <tr>
                             <td>SD</td>
                             <td>:</td>
@@ -380,7 +368,7 @@
                             <td>:</td>
                             <td>SARJANA ADMINISTRASI NEGARA FISIPOL UGM</td>
                         </tr>
-                    </table>
+                    </table> --}}
                   </div>
                 </div>
               </div>
@@ -395,7 +383,8 @@
                 </div>
                 <div id="check3" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    <table>
+                    {!! nl2br($data->data_riwayat_pekerjaan) !!}
+                    {{-- <table>
                         <tr>
                             <td>PNS PUSAT</td>
                             <td>:</td>
@@ -415,24 +404,7 @@
                                 </ul>
                             </td>
                         </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="check-title">
-                        <a data-toggle="collapse" class="active" data-parent="#accordion" href="#check4">
-                            <span class="acc-icons"></span>Fasilitator Pendidikan & Perlindungan
-                        </a>
-                    </h4>
-                </div>
-                <div id="check4" class="panel-collapse collapse in">
-                  <div class="panel-body">
-                    <p>
-                      Fasilitator DBE-1 USAID (Manajemen & Tata kelola) untuk Manajemen Berbasis Sekolah dan aktif dalam kegiatan perlindungan anak yang didukung oleh UNICEF
-                    </p>
+                    </table> --}}
                   </div>
                 </div>
               </div>
@@ -448,13 +420,14 @@
                 <div id="check5" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <ul>
-                        <li>1. BPD DESA MEGER (WAKIL KETUA/KETUA, 2 PERIODE)</li>
+                      {!! nl2br($data->data_riwayat_pengabdian_masyarakat) !!}
+                        {{-- <li>1. BPD DESA MEGER (WAKIL KETUA/KETUA, 2 PERIODE)</li>
                         <li>2. BKM DAMAI MEGER (KOORDINATOR, 3 PERIODE)</li>
                         <li>3. KETUA RW 02 DESA MEGER</li>
                         <li>4. DIKDASMEN PDM KLATEN (WAKIL KETUA)</li>
                         <li>5. PENDIRI BMT AL FALAH CEPER (KETUA PENGURUS 4 PERIODE)</li>
                         <li>6. TIM PERUMUS PEMBENTUKAN BUMDes MEGER</li>
-                        <li>7. TIM PERUMUS RKPDes MEGER TAHUN 2020</li>
+                        <li>7. TIM PERUMUS RKPDes MEGER TAHUN 2020</li> --}}
                     </ul>
                   </div>
                 </div>
@@ -463,73 +436,6 @@
             </div>
           </div>
         </div>
-
-        {{-- <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="tab-menu">
-            
-            <ul class="nav nav-tabs" role="tablist">
-              <li class="active">
-                <a href="#p-view-1" role="tab" data-toggle="tab">Data Pribadi</a>
-              </li>
-              <li>
-                <a href="#p-view-2" role="tab" data-toggle="tab">Data Keluarga</a>
-              </li>
-              <li>
-                <a href="#p-view-3" role="tab" data-toggle="tab">Riwayat Pendidikan</a>
-              </li>
-              <li>
-                <a href="#p-view-3" role="tab" data-toggle="tab">Riwayat Pekerjaan & Tempat Tugas</a>
-              </li>
-              <li>
-                <a href="#p-view-3" role="tab" data-toggle="tab">Fasilitator Pendidikan & Perlindungan Anak</a>
-              </li>
-              <li>
-                <a href="#p-view-3" role="tab" data-toggle="tab">Riwayat Pengabdian Masyarakat</a>
-              </li>
-            </ul>
-          </div>
-          <div class="tab-content">
-            <div class="tab-pane active" id="p-view-1">
-              <div class="tab-inner">
-                <div class="event-content head-team">
-                  <h4>Project</h4>
-                  <p>
-                    Redug Lares dolor sit amet, consectetur adipisicing elit. Animi vero excepturi magnam ducimus adipisci voluptas, praesentium maxime necessitatibus in dolor dolores unde ab, libero quo. Aut, laborum sequi.
-                  </p>
-                  <p>
-                    voluptas, praesentium maxime cum fugiat,magnam ducimus adipisci voluptas, praesentium architecto ducimus, doloribus fuga itaque omnis placeat.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="p-view-2">
-              <div class="tab-inner">
-                <div class="event-content head-team">
-                  <h4>Planning</h4>
-                  <p>
-                    voluptas, praesentium maxime cum fugiat,magnam ducimus adipisci voluptas, praesentium architecto ducimus, doloribus fuga itaque omnis.
-                  </p>
-                  <p>
-                    Redug Lares dolor sit amet, consectetur adipisicing elit. Animi vero excepturi magnam ducimus adipisci voluptas, praesentium maxime necessitatibus in dolor dolores unde ab, libero quo. Aut.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="p-view-3">
-              <div class="tab-inner">
-                <div class="event-content head-team">
-                  <h4>Success</h4>
-                  <p>
-                    voluptas, praesentium maxime cum fugiat,magnam ducimus adipisci voluptas, praesentium architecto ducimus, doloribus fuga itaque omnis placeat.
-                  </p>
-                  <p>
-                    voluptas, praesentium maxime cum fugiat,magnam ducimus adipisci voluptas, praesentium architecto ducimus, doloribus fuga itaque omnis.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
 
       </div>
       <!-- end Row -->
@@ -552,15 +458,7 @@
                 <div class="single-testi">
                   <div class="testi-text">
                     <p>
-                      Bersama Agus, Meger Bagus!
-                    </p>
-                  </div>
-                </div>
-                <!-- End single item -->
-                <div class="single-testi">
-                  <div class="testi-text">
-                    <p>
-                      Berani, Jujur, Hebat!
+                      {{ $data->caption_foto_tengah }}
                     </p>
                   </div>
                 </div>
@@ -960,7 +858,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
           <div class="suscribe-text text-center">
-            <h3>Gerakan Muhammad Agus Salim (GERMAS)</h3>
+            <h3>{{ $data->caption_lain }}</h3>
           </div>
         </div>
       </div>
@@ -986,7 +884,7 @@
               <div class="single-icon">
                 <i class="fa fa-mobile"></i>
                 <p>
-                  085 602 852 677<br>
+                  {{ $data->telepon }}<br>
                 </p>
               </div>
             </div>
@@ -997,8 +895,8 @@
               <div class="single-icon">
                 <i class="fa fa-envelope-o"></i>
                 <p>
-                  Email: germasmeger@gmail.com<br>
-                  <span>Web: germasmeger.com</span>
+                  {{ $data->email }}<br>
+                  <span>Web: {{ url('/') }}</span>
                 </p>
               </div>
             </div>

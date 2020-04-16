@@ -29,11 +29,12 @@ class PengaturanAplikasiController extends Controller
         $data->data_pribadi = $str[6];
         $data->data_keluarga = $str[7];
         $data->data_riwayat_pendidikan = $str[8];
-        $data->data_riwayat_pengabdian_masyarakat = $str[9];
-        $data->caption_foto_tengah = $str[10];
-        $data->caption_lain = $str[11];
-        $data->telepon = $str[12];
-        $data->email = $str[13];
+        $data->data_riwayat_pekerjaan = $str[9];
+        $data->data_riwayat_pengabdian_masyarakat = $str[10];
+        $data->caption_foto_tengah = $str[11];
+        $data->caption_lain = $str[12];
+        $data->telepon = $str[13];
+        $data->email = $str[14];
         $data->save();
         return true;
     }
@@ -91,6 +92,10 @@ class PengaturanAplikasiController extends Controller
         $data_riwayat_pendidikan = $request->data_riwayat_pendidikan;
         $data_str->data_riwayat_pendidikan = $data_riwayat_pendidikan;
 
+        //Data Riwayat Pekerjaan
+        $data_riwayat_pekerjaan = $request->data_riwayat_pekerjaan;
+        $data_str->data_riwayat_pekerjaan = $data_riwayat_pekerjaan;
+
         //Data Riwayat Pengabdian Masyarakat
         $data_riwayat_pengabdian_masyarakat = $request->data_riwayat_pengabdian_masyarakat;   
         $data_str->data_riwayat_pengabdian_masyarakat = $data_riwayat_pengabdian_masyarakat; 
@@ -131,7 +136,7 @@ class PengaturanAplikasiController extends Controller
         $str = [
             $nama_aplikasi, $caption_foto_beranda_1, $caption_foto_beranda_2,
             $caption_foto_beranda_3, $visi, $misi, $data_pribadi, $data_keluarga, $data_riwayat_pendidikan, 
-            $data_riwayat_pengabdian_masyarakat, $caption_foto_tengah, $caption_lain, $telepon, $email
+            $data_riwayat_pekerjaan, $data_riwayat_pengabdian_masyarakat, $caption_foto_tengah, $caption_lain, $telepon, $email
         ];
 
         $file_foto_beranda_1 = $request->file('foto_beranda_1');

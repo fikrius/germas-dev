@@ -14,16 +14,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Pengaturan Aplikasi') }}</div>
-                    <?php if(auth()->user()->isAdmin == 1){?>
-                        <div class="panel-body">
-                            {{-- <a href="{{url('admin/routes')}}">Pemilih</a> --}}
-                            {{-- <a href="{{url('Pemilih')}}">Pemilih</a>
-                            <a href="{{url('Relawan')}}">Relawan</a>
-                            <a href="{{url('Pengaturan')}}">Pengaturan</a> --}}
-                        </div>
-                    <?php } else echo '';?>
-
+                    <div class="card-header"><b>Pengaturan Aplikasi</b></div>
                     <div class="row mt-3">
                         <div class="col-md-10 offset-1 mb-3">
                             <form method="POST" action="{{ url('pengaturan/create') }}" enctype="multipart/form-data">
@@ -94,7 +85,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="misi">Misi</label>
-                                    <input type="text" value="" name="misi" class="form-control" id="misi">
+                                    <textarea class="form-control" name="misi" id="misi"></textarea>
+                                    {{-- <input type="text" value="" name="misi" class="form-control" id="misi"> --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_profil">Foto Profil</label>
@@ -105,23 +97,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="data_pribadi">Data Pribadi</label>
-                                    <input type="text" value="" name="data_pribadi" class="form-control" id="data_pribadi">
+                                    <textarea name="data_pribadi" id="data_pribadi" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_keluarga">Data Keluarga</label>
-                                    <input type="text" value="" name="data_keluarga" class="form-control" id="data_keluarga">
+                                    <textarea name="data_keluarga" id="data_keluarga" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pendidikan">Data Riwayat Pendidikan</label>
-                                    <input type="text" value="" name="data_riwayat_pendidikan" class="form-control" id="data_riwayat_pendidikan">
+                                    <textarea name="data_riwayat_pendidikan" id="data_riwayat_pendidikan" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pekerjaan">Data Riwayat Pekerjaan</label>
-                                    <input type="text" value="" name="data_riwayat_pekerjaan" class="form-control" id="data_riwayat_pekerjaan">
+                                    <textarea name="data_riwayat_pekerjaan" id="data_riwayat_pekerjaan" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="data_riwayat_pengabdian_masyarakat">Data Riwayat Pengabdian Masyarakat</label>
-                                    <input type="text" value="" name="data_riwayat_pengabdian_masyarakat" class="form-control" id="data_riwayat_pengabdian_masyarakat">
+                                    <textarea name="data_riwayat_pengabdian_masyarakat" id="data_riwayat_pengabdian_masyarakat" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_tengah">Foto Tengah</label>
@@ -148,10 +140,49 @@
                                 </div>
                                 <input type="submit" class="btn btn-lg btn-success" value="Simpan">
                             </form>         
-                            
                         </div>
                     </div>
-
+                </div>
+                <div class="card mt-3">
+                    <div class="card-header"><b>Galeri</b></div>
+                    <div class="row mt-3">
+                        <div class="col-md-10 offset-1 mb-3">
+                            <form method="POST" action="{{ url('pengaturan/createGaleri') }}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div id="scroll">
+                                    @if ($message = Session::get('success'))
+                                        <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>	
+                                                <strong>{{ $message }}</strong>
+                                        </div>
+                                    @endif      
+                                    @if ($message = Session::get('error'))
+                                        <div class="alert alert-error alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>	
+                                                <strong>{{ $message }}</strong>
+                                        </div>
+                                    @endif   
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif  
+                                </div>
+                                <div class="form-group">
+                                    <label for="galeri">Upload Foto</label>
+                                    <div class="col-md-12 mb-3">
+                                        <img id="preview_galeri" src="{{ asset('data_file/image-preview.png') }}" alt="preview image" style="max-height: 150px;">
+                                    </div>
+                                    <input type="file" value="" name="galeri" class="form-control-file" id="galeri">
+                                </div>
+                                <input type="submit" class="btn btn-lg btn-success" value="Simpan">
+                            </form>         
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

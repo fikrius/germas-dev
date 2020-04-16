@@ -11,9 +11,7 @@
 |
 */
 //routing root
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PageController@index');
 
 //auth
 Auth::routes();
