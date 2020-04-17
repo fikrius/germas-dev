@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>GERMAS</title>
+    <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
 
     <link rel="shortcut icon" href="{{ asset('logo.jpeg') }}">
 
@@ -35,7 +35,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    GERMAS
+                    {{ strtoupper($data_pengaturan->nama_aplikasi) }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -131,7 +131,7 @@
         <footer class="page-footer" style="bottom: 0;">
             <!-- Copyright -->
               <div class="footer-copyright text-center py-3">© 2018 Copyright
-                <a href="{{ url('') }}"> GERMAS </a>
+                <a href="{{ url('') }}"> {{ strtoupper($data_pengaturan->nama_aplikasi) }} </a>
               </div>
               <!-- Copyright -->
         </footer>

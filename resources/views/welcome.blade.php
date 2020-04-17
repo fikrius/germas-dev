@@ -2,13 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
-  <title>GERMAS</title>
+  <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="{{ asset('logo.jpeg') }}" rel="shortcut icon">
+  {{-- <link href="{{ asset('logo.jpeg') }}" rel="shortcut icon"> --}}
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
@@ -59,8 +59,8 @@
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="{{ url('/') }}">
                   @php
-                    $first_word = str_split($data->nama_aplikasi);
-                    $array_word = explode($first_word[0],$data->nama_aplikasi);
+                    $first_word = str_split($data_pengaturan->nama_aplikasi);
+                    $array_word = explode($first_word[0],$data_pengaturan->nama_aplikasi);
                     $last_word = $array_word[1];    
                   @endphp
                   <h1><span style="color: yellow;">{{ strtoupper($first_word[0]) }}</span>{{ strtoupper($last_word) }}</h1>
@@ -98,9 +98,9 @@
   <div id="home" class="slider-area">
     <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
-        <img src="{{ asset('data_file/'.$data->foto_beranda_1) }}" alt="" title="#slider-direction-5" />
-        <img src="{{ asset('data_file/'.$data->foto_beranda_2) }}" alt="" title="#slider-direction-4" />
-        <img src="{{ asset('data_file/'.$data->foto_beranda_3) }}" alt="" title="#slider-direction-6" />
+        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_1) }}" alt="" title="#slider-direction-5" />
+        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_2) }}" alt="" title="#slider-direction-4" />
+        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_3) }}" alt="" title="#slider-direction-6" />
       </div>
 
       <!-- direction 4 -->
@@ -114,7 +114,7 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data->caption_foto_beranda_1 }}</h1>
+                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_1 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -137,7 +137,7 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data->caption_foto_beranda_2 }}</h1>
+                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_2 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -160,7 +160,7 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data->caption_foto_beranda_3 }}</h1>
+                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_3 }}</h1>
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -191,7 +191,7 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="well-left">
             <div class="single-well">
-               <img src="{{ asset('data_file/'.$data->foto_profil) }}" alt="foto profil">                        
+               <img src="{{ asset('data_file/'.$data_pengaturan->foto_profil) }}" alt="foto profil">                        
             </div>
           </div>
         </div>
@@ -202,12 +202,12 @@
               
                 <h4 class="sec-head">VISI</h4>
               <p>
-                {{ nl2br($data->visi) }}
+                {{ nl2br($data_pengaturan->visi) }}
               </p>
 
               <h4 class="sec-head">MISI</h4>
               <ul>
-                <p>{!! nl2br($data->misi) !!}</p>
+                <p>{!! nl2br($data_pengaturan->misi) !!}</p>
                 {{-- <li>
                   <i class="fa fa-check"></i> Mewujudkan sumber daya manusia yang cerdas, sehat dan bermartabat
                 </li>
@@ -266,7 +266,7 @@
                 </div>
                 <div id="check7" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data->data_pribadi) !!}
+                    {!! nl2br($data_pengaturan->data_pribadi) !!}
                     {{-- <table>
                         <tr>
                             <td>Nama Lengkap</td>
@@ -303,7 +303,7 @@
                 </div>
                 <div id="check1" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data->data_keluarga) !!}
+                    {!! nl2br($data_pengaturan->data_keluarga) !!}
                     {{-- <table>
                         <tr>
                             <td>Nama Istri</td>
@@ -346,7 +346,7 @@
                 </div>
                 <div id="check2" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data->data_riwayat_pendidikan) !!}
+                    {!! nl2br($data_pengaturan->data_riwayat_pendidikan) !!}
                     {{-- <table>
                         <tr>
                             <td>SD</td>
@@ -383,7 +383,7 @@
                 </div>
                 <div id="check3" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data->data_riwayat_pekerjaan) !!}
+                    {!! nl2br($data_pengaturan->data_riwayat_pekerjaan) !!}
                     {{-- <table>
                         <tr>
                             <td>PNS PUSAT</td>
@@ -420,7 +420,7 @@
                 <div id="check5" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <ul>
-                      {!! nl2br($data->data_riwayat_pengabdian_masyarakat) !!}
+                      {!! nl2br($data_pengaturan->data_riwayat_pengabdian_masyarakat) !!}
                         {{-- <li>1. BPD DESA MEGER (WAKIL KETUA/KETUA, 2 PERIODE)</li>
                         <li>2. BKM DAMAI MEGER (KOORDINATOR, 3 PERIODE)</li>
                         <li>3. KETUA RW 02 DESA MEGER</li>
@@ -458,7 +458,7 @@
                 <div class="single-testi">
                   <div class="testi-text">
                     <p>
-                      {{ $data->caption_foto_tengah }}
+                      {{ $data_pengaturan->caption_foto_tengah }}
                     </p>
                   </div>
                 </div>
@@ -518,7 +518,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
           <div class="suscribe-text text-center">
-            <h3>{{ $data->caption_lain }}</h3>
+            <h3>{{ $data_pengaturan->caption_lain }}</h3>
           </div>
         </div>
       </div>
@@ -544,7 +544,7 @@
               <div class="single-icon">
                 <i class="fa fa-mobile"></i>
                 <p>
-                  {{ $data->telepon }}<br>
+                  {{ $data_pengaturan->telepon }}<br>
                 </p>
               </div>
             </div>
@@ -555,7 +555,7 @@
               <div class="single-icon">
                 <i class="fa fa-envelope-o"></i>
                 <p>
-                  {{ $data->email }}<br>
+                  {{ $data_pengaturan->email }}<br>
                   <span>Web: {{ url('/') }}</span>
                 </p>
               </div>

@@ -133,22 +133,22 @@ class PetakanPemilihController extends Controller
     //     return view('petakanpemilih')->withData($data);
     // }
 
-    public function getPemilihWithCache(){
-        $query = Cache::remember("pemilih_all",1*60,function(){
-            return Pemilih::all();
-        });
+    // public function getPemilihWithCache(){
+    //     $query = Cache::remember("pemilih_all",1*60,function(){
+    //         return Pemilih::all();
+    //     });
 
-        foreach($query as $q){
-            echo "<li>{{$q->nama}}</li>";
-        }
-    }
+    //     foreach($query as $q){
+    //         echo "<li>{{$q->nama}}</li>";
+    //     }
+    // }
 
-    public function getPemilihWithQuery(){
-        $query = Pemilih::all();
-        foreach($query as $q){
-            echo "<li>{{$q->nama}}</li>";
-        }
-    }
+    // public function getPemilihWithQuery(){
+    //     $query = Pemilih::all();
+    //     foreach($query as $q){
+    //         echo "<li>{{$q->nama}}</li>";
+    //     }
+    // }
 
 
 }

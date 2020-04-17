@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pengaturan_aplikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
@@ -31,6 +32,8 @@ class HomeController extends Controller
 
     public function admin()
     {
+        //Get data pengaturan aplikasi
+        $data = Pengaturan_aplikasi::all();
         return view('admin');
     }
 
