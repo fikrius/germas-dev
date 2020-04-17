@@ -9,7 +9,7 @@
 
     <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
 
-    <link rel="shortcut icon" href="{{ asset('logo.jpeg') }}">
+    {{-- <link rel="shortcut icon" href="{{ asset('logo.jpeg') }}"> --}}
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
