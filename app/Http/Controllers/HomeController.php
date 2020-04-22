@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NotifikasiPengaduan;
+use Notification;
 use App\Pengaturan_aplikasi;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
@@ -247,5 +250,18 @@ class HomeController extends Controller
         return Response::json($data);
 
     }
+
+    // public function sendNotification(){
+    //     $admin = User::where('isAdmin', 1);
+    //     $details = [
+    //         'greeting' => 'Hai '.$admin->name,
+    //         'body' => 'Ada Pengaduan',
+    //         'thanks' => 'Terima Kasih',
+    //         'actionText' => 'View bla',
+    //         'actionURL' => url('/'),
+    //         'isi_pengaduan' => 11
+    //     ];
+    //     Notification::send($user, new NotifikasiPengaduan($details));
+    // }
 
 }

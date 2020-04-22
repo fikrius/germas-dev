@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\User;
+use Notification;
+use App\Notifications\NotifikasiPengaduan;
 use App\Pengaduan;
 use Redirect,Response;
 
@@ -46,9 +49,36 @@ class PengaduanController extends Controller
             $pengaduan->isi_pengaduan = $request->get('pengaduan');
             $pengaduan->save();
 
+            //Simpan Notifikasi
+            $admin = User::where('isAdmin',1)->first();
+            $details = [
+                'greeting' => 'Hai, ada pengaduan',
+                'actionText' => 'Silahkan baca pengaduan dengan meng klik tombol dibawah ini',
+                'actionURL' => url('/daftarpengaduan12345'),
+                'thanks' => 'terima kasih',
+                'pengaduan' => $request->pengaduan,
+                'pengaduan_id' => $pengaduan->id
+            ];
+            Notification::send($admin, new NotifikasiPengaduan($details));
+
             return redirect('pengaduan')->with('success','Pengaduan telah dikirim!');
         }
 
+    }
+
+    public function read(){
+        
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+        // dd($date);
+
+        $users = DB::table('notifications')->where('type','App\Notifications\NotifikasiPengaduan')
+                                            ->update(['read_at' => $date]);
+        // dd($dateTime);
+        // $users->read_at = $date;
+        // $users->save();
+
+        return redirect('/daftarpengaduan12345');
     }
 
     /**
@@ -98,7 +128,7 @@ class PengaduanController extends Controller
         if($delete){
             return Response::json(["success" => "Pengaduan berhasil dihapus"]);    
         }else{
-            return Response::json(["gagal" => "Pengaduan gagal dihapus"]);
+            return Response::json(["gagal" => "Pengaduan gagal dihapus x"]);
         }
         
 

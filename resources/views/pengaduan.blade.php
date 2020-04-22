@@ -45,3 +45,7 @@
     </div>
 </div>
 @endsection
+
+@section('javascripts')
+    
+@endsection

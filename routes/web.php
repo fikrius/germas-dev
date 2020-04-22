@@ -25,6 +25,7 @@ Route::get('/home/ChartAnalisis','HomeController@ChartAnalisis')->middleware('au
 //routing get data pengaduan
 Route::get('/daftarpengaduan12345','PengaduanController@getDataPengaduan')->middleware('auth');
 Route::get('/daftarpengaduan12345/{id}','PengaduanController@destroy')->middleware('auth');
+Route::get('/read','PengaduanController@read')->middleware('auth');
 
 //routing auth admin
 Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
@@ -66,4 +67,3 @@ Route::post('pengaturan/createGaleri','PengaturanAplikasiController@createGaleri
 //Uji coba redis
 Route::get('/pemilih_cache', 'PetakanPemilihController@getPemilihWithCache');
 Route::get('/pemilih_query', 'PetakanPemilihController@getPemilihWithQuery');
-

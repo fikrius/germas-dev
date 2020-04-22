@@ -81,8 +81,13 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/daftarrelawanfjvixcplkrbprsci') }}">Daftar Relawan</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('/daftarpengaduan12345') }}">Pengaduan<span class="badge badge-pill badge-info">24</span></a>
+                                    <li class="nav-item" id="badge-pengaduan">
+                                        <a href="{{ url('/read') }}" class="nav-link">Pengaduan
+                                            @if ($data_notifikasi_pengaduan > 0)
+                                                <span class="badge badge-pill badge-info">{{ $data_notifikasi_pengaduan }}</span>
+                                            @endif
+                                            {{-- {{ auth()->user()->readnotifications->count() }} --}}
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/pengaturan') }}">Pengaturan</a>
@@ -140,6 +145,32 @@
             
 
     </div>
+    <script>
+        $(document).ready(function(){
+            // function markAsReadPengaduan(){
+            //     $.ajax({
+            //         url: '/daftarpengaduan12345/markasread',
+            //         type: 'GET',
+            //         dataType: 'json',
+            //         success: function($data){
+            //             console.log('sukses mark as read');
+            //         }
+            //     });
+            // }
+            // $('#badge-pengaduan').on('click', function(e){
+            //     // e.preventDefault();
+            //     var today = new Date();
+            //     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            //     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            //     var dateTime = date + ' ' + time;
+
+            //     $.get({
+            //         url: '/daftarpengaduan12345/markasread/' + dateTime,
+            //     });
+            // });
+        });
+
+    </script>
     @yield('javascripts')
 </body>
 </html>
