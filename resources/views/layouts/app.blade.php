@@ -60,7 +60,7 @@
                                 </li>
                             @endif
                             @else
-                                @if(auth()->user()->isAdmin == 1)
+                                @if(auth()->user()->roles == 1)
                                     {{-- <li class="nav-item">
                                         <a class="nav-link" href="{{ url('relawan') }}">Relawan</a>
                                     </li>
@@ -94,7 +94,7 @@
                                     </li>
                                 @endif
 
-                                @if(auth()->user()->isAdmin != 1)
+                                @if(auth()->user()->roles != 1)
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/home') }}">Beranda</a>
                                     </li>
