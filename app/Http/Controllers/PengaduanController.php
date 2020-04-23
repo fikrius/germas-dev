@@ -50,7 +50,7 @@ class PengaduanController extends Controller
             $pengaduan->save();
 
             //Simpan Notifikasi
-            $admin = User::where('isAdmin',1)->first();
+            $admin = User::where('roles',1)->first();
             $details = [
                 'greeting' => 'Hai, ada pengaduan',
                 'actionText' => 'Silahkan baca pengaduan dengan meng klik tombol dibawah ini',
