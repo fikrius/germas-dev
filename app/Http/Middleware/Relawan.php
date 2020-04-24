@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class Admin
+class Relawan
 {
     /**
      * Handle an incoming request.
@@ -14,16 +14,18 @@ class Admin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next){
+    public function handle($request, Closure $next)
+    {
         if(!Auth::check()){
             return redirect()->route('login');
         }
 
         if(Auth::user()->roles == 1){
-            return $next($request);
-        }
-        if(Auth::user()->roles == 2){
             return redirect()->route('home');
+        }
+
+        if(Auth::user()->roles == 2){
+            return $next($request);
         }
     }
 }
