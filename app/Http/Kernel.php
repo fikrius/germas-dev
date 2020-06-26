@@ -73,7 +73,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\Admin::class,
 
         'relawan' =>
-        \App\Http\Middleware\Admin::class,
+        \App\Http\Middleware\Relawan::class,
     ];
 
     /**

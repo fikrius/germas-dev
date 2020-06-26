@@ -9,8 +9,6 @@
 
     <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
 
-    {{-- <link rel="shortcut icon" href="{{ asset('logo.jpeg') }}"> --}}
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
@@ -19,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    {{-- Yajra Datatables --}}
-    {{-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 
     <!-- Styles -->
@@ -102,6 +98,28 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('petakanpemilih') }}">Petakan Pemilih</a>
                                     </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Notif
+                                            @if (auth()->user()->unreadNotifications->count() != 0)
+                                                <span class="badge badge-pill badge-info">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                            @endif
+                                        </a>
+                                        <div class="dropdown-menu" style="overflow-y: scroll; height: 20rem;" aria-labelledby="navbarDropdownMenuLink">
+                                            @if (auth()->user()->unreadNotifications->count() == 0)
+                                                <p>Tidak ada notifikasi</p>
+                                            @endif
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                                <a class="dropdown-item" href="#">
+                                                    <h5><b>Pesan dari Admin</b></h5>
+                                                    <p>{{ $notification->data['pesan'] }}</p>
+                                                </a>
+                                                <hr>
+                                            @endforeach
+                                            <a href="{{ url('/notifikasi') }}">Lihat Semua</a>
+                                        </div>
+                                      </li>
                                 @endif
 
                                 <li class="nav-item dropdown">

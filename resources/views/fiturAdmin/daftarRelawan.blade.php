@@ -26,6 +26,7 @@
                                                 <th>Email</th>
                                                 <th>Is Admin</th>
                                                 <th>Dibuat Pada</th>
+                                                <th>Beri Pesan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -34,8 +35,17 @@
                                                     <td>{{$r->id}}</td>
                                                     <td>{{$r->name}}</td>
                                                     <td>{{$r->email}}</td>
-                                                    <td>{{$r->isAdmin}}</td>
-                                                    <td>{{$r->created_at}}</td>
+                                                    <td>{{$r->roles}}</td>
+                                                    <td>{{ date('l, F Y | h:i:sa', strtotime($r->created_at)) }}</td>
+                                                    @if ($r->roles == 1)
+                                                        <td>
+                                                            <a href="{{ url('daftarrelawanfjvixcplkrbprsci/pesan/'.$r->id) }}" class="btn btn-sm btn-danger disabled">Buat Pesan</a>
+                                                        </td>
+                                                    @else 
+                                                        <td>
+                                                            <a href="{{ url('daftarrelawanfjvixcplkrbprsci/pesan/'.$r->id) }}" class="btn btn-sm btn-success">Buat Pesan</a>
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

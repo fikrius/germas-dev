@@ -46,9 +46,42 @@
                             <div id="download" class="col-md-3">
                                 <h5 style="color: red;">Cetak Dokumen</h5>
                             </div>
-                            <div class="col-md-3 offset-6">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#btn-tambah-data">Tambah Data</button>
+                            <div class="col-md-4 offset-5">
+                                @if (auth()->user()->roles == 1)
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#btn-tambah-data">Tambah Data</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#btn-reset-database">Reset Database</button>
+                                @endif
 
+                                {{-- Modal reset database (jadi 0) --}}
+                                <div class="modal fade" id="btn-reset-database" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi reset database jadi 0 semua</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="form-reset">
+                                                    {{-- {{ csrf_field() }} --}}
+                                                    <div class="form-group">
+                                                        <label for="password-confirmation" class="col-form-label">Masukkan Password :</label>
+                                                        <input name="password-confirmation" type="password" class="form-control" id="password-confirmation">
+                                                    </div>
+                                                    <div id="notif" style="color: red"></div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                                                        <button type="submit" class="btn btn-primary" id="send">Kirim</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- End modal reset database --}}
+
+                                {{-- Modal tambah data --}}
                                 <div class="modal fade" id="btn-tambah-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -206,9 +239,43 @@
             $('.dataTables_length').addClass('bs-select');
 
             getKeterangan();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
         });
 
+        // Fungsi Reset database
+        $('#form-reset').submit(function(e){
+            $('#notif').html("");
+            e.preventDefault();
+            var password = $('#password-confirmation').val();
+
+            $.ajax({
+                type: 'POST',
+                data: {password:password},
+                url: '/petakanpemilih/reset-database',
+                success: function(data){
+                    console.log(data.msg);
+                    if(data.msg == 'Password Salah'){
+                        $('#notif').html(data.msg);
+                        return false;
+                    }
+                    $('#notif').html(data.msg);
+                    setTimeout(function(){
+                        console.log(data.msg);
+                        location.reload();
+                    }, 3000);
+
+                }
+            });
+
+        });
         
+
         var table = $('#table-pemilih').DataTable({
                 buttons: true,
                 ordering: true,

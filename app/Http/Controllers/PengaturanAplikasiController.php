@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use App\Galeri;
 use App\Pengaturan_aplikasi;
 use Illuminate\Http\Request;
@@ -12,7 +12,9 @@ class PengaturanAplikasiController extends Controller
 {
     public function index(){
         $data = Pengaturan_aplikasi::latest()->first();
-        return view('fiturAdmin.pengaturan')->withData($data);
+        $galeri = Galeri::simplePaginate(3);
+
+        return view('fiturAdmin.pengaturan')->with(['data' => $data, 'galeri' => $galeri]);
     }
 
     public function savePhotoToDB($str1, $col1, $str2, $col2, $str3, $col3, $str4, $col4, $str5, $col5, $str){
@@ -220,5 +222,31 @@ class PengaturanAplikasiController extends Controller
         return redirect('pengaturan')->with('sukses','Upload foto galeri berhasil');
 
     }
+
+    public function deleteGaleri($id){
+        $galeri = Galeri::find($id);
+        $galeri->delete();
+
+        return redirect()->back()->with(['sukses_hapus' => 'foto berhasil dihapus']);
+    }
+
+    public function deleteAllGaleri(Request $request){
+        // Password Confirmation
+        if(password_verify($request->password, auth()->user()->password) != 1){
+            $msg = 'Password Salah';
+            
+            return response()->json(['msg' => $msg]);
+        }
+
+        // Hapus semua foto galeri
+        $delete = DB::table('galeri');
+        if($delete->delete()){
+            $msg = 'Password Benar, Semua foto galeri berhasil dihapus';
+            return response()->json(['msg' => $msg]);
+        }
+
+    }
+
+
 
 }

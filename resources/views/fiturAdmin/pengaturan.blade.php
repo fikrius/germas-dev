@@ -211,6 +211,66 @@
                                 </div>
                                 <button type="submit" class="btn btn-success" style="margin-top:10px">Submit</button>
                             </form>      
+                            {{-- table foto galeri --}}
+                            @if ($message = Session::get('sukses_hapus'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif
+                            <table class="table table-hover mt-4">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Foto Galeri</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($galeri as $g)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <img style="max-height: 150px;" class="img-fluid img-thumbnail" src="{{ asset('/data_file/galeri/'.$g->filename) }}" alt="foto galeri">
+                                            </td>
+                                            <td>
+                                                <a onclick="confirm('Apakah yakin ingin menghapus foto?')" class="btn btn-danger btn-sm" href="{{ url('/pengaturan/delete/'.$g->id) }}">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <a style="float: right" data-toggle="modal" data-target="#deleteall" href="{{ url('/pengaturan/deleteall') }}" class="btn btn-danger btn-sm">Hapus Semua</a>
+
+                            <div class="modal fade" id="deleteall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Hapus Semua Foto Galeri</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-delete">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="password-confirmation" class="col-form-label">Masukkan Password :</label>
+                                                <input name="password-confirmation" type="password" class="form-control" id="password-confirmation">
+                                            </div>
+                                            <div id="notif" style="color: red"></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                                                <button type="submit" class="btn btn-primary" id="send">Kirim</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            {{ $galeri->links() }}
                         </div>
                     </div>
                 </div>
@@ -229,6 +289,34 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            // Password confirmation -> Delete all photo galeri
+            $('#form-delete').submit(function(e){
+                var password = $("#password-confirmation").val();
+                $('#notif').html("");
+                console.log(password);
+
+                e.preventDefault();
+                console.log(1);
+                $.ajax({
+                    type: 'POST',
+                    url: 'pengaturan/deleteall',
+                    data: {password:password},
+                    success: function(data){
+                        console.log(2);
+                        if(data.msg == "Password Salah"){
+                            $('#notif').html(data.msg);
+                            return false;
+                        }else{
+                            console.log(data.msg);
+                            $('#notif').html(data.msg);
+                            setTimeout(function(){
+                                location.reload();
+                            }, 3000);
+                        }
+                    }
+                });
             });
 
             //Menampilkan input file di galeri

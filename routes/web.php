@@ -36,8 +36,16 @@ Route::middleware(['admin'])->group(function(){
 	Route::get('pengaturan','PengaturanAplikasiController@index');
 	Route::post('pengaturan/create','PengaturanAplikasiController@create');
 	Route::post('pengaturan/createGaleri','PengaturanAplikasiController@createGaleri');
+	Route::get('pengaturan/delete/{id}','PengaturanAplikasiController@deleteGaleri');
+	Route::post('pengaturan/deleteall','PengaturanAplikasiController@deleteAllGaleri');
+
+	//Route beri pesan ke relawan
+	Route::get('/daftarrelawanfjvixcplkrbprsci/pesan/{id}', 'AdminMessageController@ShowSendMessageToRelawan');
+	Route::post('/daftarrelawanfjvixcplkrbprsci/sendMessage', 'AdminMessageController@sendMessageToRelawan');
 
 });
+
+Route::get('/cekpass', 'PengaturanAplikasiController@cek');
 
 //routing fitur petakan pemilih (ADMIN, RELAWAN)
 Route::middleware(['auth'])->group(function(){
@@ -51,6 +59,15 @@ Route::middleware(['auth'])->group(function(){
 	
 	//tambah data pemilih
 	Route::post('petakanpemilih/tambahData','PetakanPemilihController@tambahData');
+
+	// Reset database
+	Route::post('petakanpemilih/reset-database', 'PetakanPemilihController@resetDatabase');
+});
+
+// RELAWAN
+Route::middleware(['auth','relawan'])->group(function(){
+	Route::get('/notifikasi', 'NotifikasiRelawan@showAllNotifications');
+	Route::get('/notifikasi/sendMessage','NotifikasiRelawan@sendMessageToAdmin');
 });
 
 //SEMUA BISA MENGAKSES

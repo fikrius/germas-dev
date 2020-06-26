@@ -150,5 +150,18 @@ class PetakanPemilihController extends Controller
     //     }
     // }
 
+    public function resetDatabase(Request $r){
+        // Cek password
+        if(password_verify($r->password, auth()->user()->password)){
+            $pemilih = DB::table('pemilihfix')->update([
+                'status' => 0
+            ]);
+
+            return response()->json(['msg' => 'Password Benar, Database berhasil di Reset. Me-refresh dalam 3 detik']);
+        }
+        
+        return response()->json(['msg' => 'Password Salah']);
+
+    }
 
 }
