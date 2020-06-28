@@ -14,7 +14,7 @@
 Route::get('/','PageController@index');
 
 //auth
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //RELAWAN & ADMIN
 //routing home
@@ -37,7 +37,7 @@ Route::middleware(['admin'])->group(function(){
 	Route::post('pengaturan/create','PengaturanAplikasiController@create');
 	Route::post('pengaturan/createGaleri','PengaturanAplikasiController@createGaleri');
 	Route::get('pengaturan/delete/{id}','PengaturanAplikasiController@deleteGaleri');
-	Route::post('pengaturan/deleteall','PengaturanAplikasiController@deleteAllGaleri');
+	Route::post('pengaturan/deleteall','PengaturanAplikasiController@deleteAllPengaturan');
 
 	//Route beri pesan ke relawan
 	Route::get('/daftarrelawanfjvixcplkrbprsci/pesan/{id}', 'AdminMessageController@ShowSendMessageToRelawan');

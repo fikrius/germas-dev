@@ -2,7 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
-  <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
+  @if ($data_pengaturan == null)
+      <title></title>
+  @else
+      <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
+  @endif
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -58,12 +62,16 @@
                                     </button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="{{ url('/') }}">
-                  @php
-                    $first_word = str_split($data_pengaturan->nama_aplikasi);
-                    $array_word = explode($first_word[0],$data_pengaturan->nama_aplikasi);
-                    $last_word = $array_word[1];    
-                  @endphp
-                  <h1><span style="color: yellow;">{{ strtoupper($first_word[0]) }}</span>{{ strtoupper($last_word) }}</h1>
+
+                  @if ($data_pengaturan != null)
+                    @php
+                      $first_word = str_split($data_pengaturan->nama_aplikasi);
+                      $array_word = explode($first_word[0],$data_pengaturan->nama_aplikasi);
+                      $last_word = $array_word[1];    
+                    @endphp
+                    <h1><span style="color: yellow;">{{ strtoupper($first_word[0]) }}</span>{{ strtoupper($last_word) }}</h1>
+                  @endif
+                  <h1><span style="color: yellow;"></span></h1>
                 </a>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
@@ -98,9 +106,16 @@
   <div id="home" class="slider-area">
     <div class="bend niceties preview-2">
       <div id="ensign-nivoslider" class="slides">
-        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_1) }}" alt="" title="#slider-direction-5" />
-        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_2) }}" alt="" title="#slider-direction-4" />
-        <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_3) }}" alt="" title="#slider-direction-6" />
+        @if ($data_pengaturan != null)
+          <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_1) }}" alt="" title="#slider-direction-5" />
+          <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_2) }}" alt="" title="#slider-direction-4" />
+          <img src="{{ asset('data_file/'.$data_pengaturan->foto_beranda_3) }}" alt="" title="#slider-direction-6" />
+        @else 
+          <img src="{{ asset('data_file/image-preview.png') }}" alt="" title="#slider-direction-5" />
+          <img src="{{ asset('data_file/image-preview.png') }}" alt="" title="#slider-direction-4" />
+          <img src="{{ asset('data_file/image-preview.png') }}" alt="" title="#slider-direction-6" />
+        @endif
+
       </div>
 
       <!-- direction 4 -->
@@ -114,7 +129,9 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_1 }}</h1>
+                  @if ($data_pengaturan != null)
+                    <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_1 }}</h1>
+                  @endif
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -137,7 +154,9 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_2 }}</h1>
+                  @if ($data_pengaturan != null)
+                    <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_2 }}</h1>
+                  @endif
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -160,7 +179,9 @@
                 </div>
                 <!-- layer 2 -->
                 <div class="layer-1-2 wow slideInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_3 }}</h1>
+                  @if ($data_pengaturan != null)
+                    <h1 class="title2">{{ $data_pengaturan->caption_foto_beranda_3 }}</h1>
+                  @endif
                 </div>
                 <!-- layer 3 -->
                 <div class="layer-1-3 hidden-xs wow slideInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -191,7 +212,11 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="well-left">
             <div class="single-well">
-               <img src="{{ asset('data_file/'.$data_pengaturan->foto_profil) }}" alt="foto profil">                        
+              @if ($data_pengaturan == null)
+                <img src="{{ asset('data_file/image-preview.png') }}" alt="foto profil">                        
+              @else
+                <img src="{{ asset('data_file/'.$data_pengaturan->foto_profil) }}" alt="foto profil">                        
+              @endif
             </div>
           </div>
         </div>
@@ -202,12 +227,16 @@
               
                 <h4 class="sec-head">VISI</h4>
               <p>
-                {{ nl2br($data_pengaturan->visi) }}
+                @if ($data_pengaturan != null)
+                  {{ nl2br($data_pengaturan->visi) }}
+                @endif
               </p>
 
               <h4 class="sec-head">MISI</h4>
               <ul>
-                <p>{!! nl2br($data_pengaturan->misi) !!}</p>
+                @if ($data_pengaturan != null)
+                  <p>{!! nl2br($data_pengaturan->misi) !!}</p>
+                @endif
                 {{-- <li>
                   <i class="fa fa-check"></i> Mewujudkan sumber daya manusia yang cerdas, sehat dan bermartabat
                 </li>
@@ -266,7 +295,9 @@
                 </div>
                 <div id="check7" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data_pengaturan->data_pribadi) !!}
+                    @if ($data_pengaturan != null)
+                      {!! nl2br($data_pengaturan->data_pribadi) !!}
+                    @endif
                     {{-- <table>
                         <tr>
                             <td>Nama Lengkap</td>
@@ -303,7 +334,9 @@
                 </div>
                 <div id="check1" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data_pengaturan->data_keluarga) !!}
+                    @if ($data_pengaturan != null)
+                      {!! nl2br($data_pengaturan->data_keluarga) !!}
+                    @endif
                     {{-- <table>
                         <tr>
                             <td>Nama Istri</td>
@@ -346,7 +379,10 @@
                 </div>
                 <div id="check2" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data_pengaturan->data_riwayat_pendidikan) !!}
+                    @if ($data_pengaturan != null)
+                      {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                      {!! nl2br($data_pengaturan->data_riwayat_pendidikan) !!}
+                    @endif
                     {{-- <table>
                         <tr>
                             <td>SD</td>
@@ -383,7 +419,10 @@
                 </div>
                 <div id="check3" class="panel-collapse collapse in">
                   <div class="panel-body">
-                    {!! nl2br($data_pengaturan->data_riwayat_pekerjaan) !!}
+                    @if ($data_pengaturan != null)
+                      {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                      {!! nl2br($data_pengaturan->data_riwayat_pekerjaan) !!}
+                    @endif
                     {{-- <table>
                         <tr>
                             <td>PNS PUSAT</td>
@@ -420,7 +459,10 @@
                 <div id="check5" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <ul>
-                      {!! nl2br($data_pengaturan->data_riwayat_pengabdian_masyarakat) !!}
+                      @if ($data_pengaturan != null)
+                        {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                        {!! nl2br($data_pengaturan->data_riwayat_pengabdian_masyarakat) !!}
+                      @endif
                         {{-- <li>1. BPD DESA MEGER (WAKIL KETUA/KETUA, 2 PERIODE)</li>
                         <li>2. BKM DAMAI MEGER (KOORDINATOR, 3 PERIODE)</li>
                         <li>3. KETUA RW 02 DESA MEGER</li>
@@ -458,7 +500,10 @@
                 <div class="single-testi">
                   <div class="testi-text">
                     <p>
-                      {{ $data_pengaturan->caption_foto_tengah }}
+                      @if ($data_pengaturan != null)
+                        {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                        {{ $data_pengaturan->caption_foto_tengah }}
+                      @endif
                     </p>
                   </div>
                 </div>
@@ -518,7 +563,10 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
           <div class="suscribe-text text-center">
-            <h3>{{ $data_pengaturan->caption_lain }}</h3>
+            @if ($data_pengaturan != null)
+              {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+              <h3>{{ $data_pengaturan->caption_lain }}</h3>
+            @endif
           </div>
         </div>
       </div>
@@ -544,7 +592,10 @@
               <div class="single-icon">
                 <i class="fa fa-mobile"></i>
                 <p>
-                  {{ $data_pengaturan->telepon }}<br>
+                  @if ($data_pengaturan != null)
+                    {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                    {{ $data_pengaturan->telepon }}<br>
+                  @endif
                 </p>
               </div>
             </div>
@@ -555,7 +606,10 @@
               <div class="single-icon">
                 <i class="fa fa-envelope-o"></i>
                 <p>
-                  {{ $data_pengaturan->email }}<br>
+                  @if ($data_pengaturan != null)
+                    {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                    {{ $data_pengaturan->email }}<br>
+                  @endif
                   <span>Web: {{ url('/') }}</span>
                 </p>
               </div>
@@ -575,7 +629,12 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="copyright text-center">
               <p>
-                &copy; Copyright <strong>GERMAS</strong>
+                &copy; Copyright 
+                @if ($data_pengaturan != null)
+                  {{-- <p>{!! nl2br($data_pengaturan->misi) !!}</p> --}}
+                  {{-- {{ $data_pengaturan->email }}<br> --}}
+                  <strong>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</strong>
+                @endif
               </p>
             </div>
           </div>
