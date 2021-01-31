@@ -19,6 +19,7 @@
                 {{-- jumbotron --}}
                 <div class="jumbotron">
                   <h1 class="display-4">Selamat datang {{ Auth::user()->name }}</h1>
+                  <h2 class="display-5">Relawan RW {{ auth()->user()->rw }}</h2>
                   <p>Petakan Pemilih Sekarang</p>
                   <a class="btn btn-primary btn-lg" href="{{ url('petakanpemilih') }}" role="button">Petakan</a>
                 </div>

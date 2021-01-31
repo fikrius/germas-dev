@@ -56,7 +56,7 @@
                             <div class="col-md-8 offset-1">
                                 <form method="post" action="{{ url('daftarrelawanfjvixcplkrbprsci/sendMessage') }}">
                                     {{ csrf_field() }}
-                                    <input type="text" value="{{ $user->id }}" name="user_id" >
+                                    <input type="text" value="{{ $user->id }}" name="user_id" hidden>
                                     {{-- <input type="text" value="{{ auth()->user()->roles }}" name="role_pengirim" hidden> --}}
                                     <div class="input-group control-group">
                                         <input type="text" name="pesan" class="form-control">

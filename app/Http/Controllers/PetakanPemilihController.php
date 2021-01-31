@@ -26,7 +26,17 @@ class PetakanPemilihController extends Controller
 
     public function anyData()
     {
-        $pemilih = DB::table('pemilihfix')->select(['id_table', 'id_pemilih', 'nama', 'status','keterangan']);
+        // cek yang login admin apa bukan
+        if(auth()->user()->roles == 1){
+            $pemilih = DB::table('pemilihfix')->select(['id_table', 'id_pemilih', 'nama', 'status','keterangan']);
+        }else{
+            // Cek RW berapa user yang login
+            // Relawan hanya bisa memetakan sesuai RW nya masing masing
+            $rw_relawan = auth()->user()->rw;
+
+            $pemilih = DB::table('pemilihfix')->select(['id_table', 'id_pemilih', 'nama', 'status','keterangan'])
+                        ->where('id_pemilih', 'LIKE', $rw_relawan.'.%');
+        }
 
         // return Datatables::of($pemilih)->make(true);
         return Datatables::of($pemilih)
@@ -44,9 +54,16 @@ class PetakanPemilihController extends Controller
 
         		})
                 ->addColumn('keterangan', function($row){
+                    if($row->keterangan != null){
+                        $badge = '<span class="badge badge-danger">1</span>';
+                    }else{
+                        $badge = '';
+                    }
 
                     $btn_lihat_ket = '
-                        <button id="btn-lihat-ket" class="btn btn-primary btn-sm" value="'.$row->id_table.'" data-toggle="modal" data-target="#formMentionRelawan">Lihat</button>
+                        <button id="btn-lihat-ket" class="btn btn-primary btn-sm" value="'.$row->id_table.'" data-toggle="modal" data-target="#formMentionRelawan">Lihat
+                            '.$badge.'
+                        </button>
                     ';
 
                     return $btn_lihat_ket;
@@ -54,8 +71,6 @@ class PetakanPemilihController extends Controller
                 })
         		->rawColumns(['action','keterangan'])
         		->make(true);
-
-                
 
     }
 

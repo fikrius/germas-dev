@@ -14,6 +14,30 @@ class PengaturanAplikasiController extends Controller
         $data = Pengaturan_aplikasi::latest()->first();
         $galeri = Galeri::simplePaginate(3);
 
+        // dd($data);
+        // dd($galeri);
+        // if($data == null){
+        //     $data = [
+        //         'nama_aplikasi' => '',
+        //         'caption_foto_beranda_1' => '',
+        //         'caption_foto_beranda_2' => '',
+        //         'caption_foto_beranda_3' => '',
+        //         'visi' => '',
+        //         'misi' => '',
+        //         'data_pribadi' => '',
+        //         'data_keluarga' => '',
+        //         'data_riwayat_pendidikan' => '',
+        //         'data_riwayat_pekerjaan' => '',
+        //         'data_riwayat_pengabdian_masyarakat' => '',
+        //         'caption_foto_tengah' => '',
+        //         'caption_lain' => '',
+        //         'telepon' => '',
+        //         'email' => ''
+
+        //     ];
+        //     // dd($data);
+        // }
+
         return view('fiturAdmin.pengaturan')->with(['data' => $data, 'galeri' => $galeri]);
     }
 
@@ -230,7 +254,7 @@ class PengaturanAplikasiController extends Controller
         return redirect()->back()->with(['sukses_hapus' => 'foto berhasil dihapus']);
     }
 
-    public function deleteAllGaleri(Request $request){
+    public function deleteAllPengaturan(Request $request){
         // Password Confirmation
         if(password_verify($request->password, auth()->user()->password) != 1){
             $msg = 'Password Salah';
@@ -239,10 +263,14 @@ class PengaturanAplikasiController extends Controller
         }
 
         // Hapus semua foto galeri
-        $delete = DB::table('galeri');
-        if($delete->delete()){
-            $msg = 'Password Benar, Semua foto galeri berhasil dihapus';
-            return response()->json(['msg' => $msg]);
+        $galeri = DB::table('galeri');
+        if($galeri->delete()){
+            // Hapus pengaturan
+            $pengaturan = DB::table('pengaturan_aplikasi');
+            if($pengaturan->delete()){
+                $msg = 'Password Benar, Semua pengaturan berhasil dihapus';
+                return response()->json(['msg' => $msg]);
+            } 
         }
 
     }

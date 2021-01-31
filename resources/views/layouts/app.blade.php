@@ -7,7 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
+    @if ($data_pengaturan == null)
+        <title></title>
+    @else
+        <title>{{ strtoupper($data_pengaturan->nama_aplikasi) }}</title>
+    @endif
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
@@ -31,8 +35,11 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ strtoupper($data_pengaturan->nama_aplikasi) }}
+                    @if ($data_pengaturan != null)
+                        {{ strtoupper($data_pengaturan->nama_aplikasi) }}
+                    @endif
                 </a>
+                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -51,9 +58,9 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
-                                </li>
+                                </li> --}}
                             @endif
                             @else
                                 @if(auth()->user()->roles == 1)
@@ -68,9 +75,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/home') }}">Beranda</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/logrelawan') }}">Log Relawan</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('/petakanpemilih') }}">Petakan Pemilih</a>
                                     </li>
@@ -154,7 +161,11 @@
         <footer class="page-footer" style="bottom: 0;">
             <!-- Copyright -->
               <div class="footer-copyright text-center py-3">© 2018 Copyright
-                <a href="{{ url('') }}"> {{ strtoupper($data_pengaturan->nama_aplikasi) }} </a>
+                <a href="{{ url('') }}"> 
+                    @if ($data_pengaturan != null)
+                        {{ strtoupper($data_pengaturan->nama_aplikasi) }}
+                    @endif
+                </a>
               </div>
               <!-- Copyright -->
         </footer>
