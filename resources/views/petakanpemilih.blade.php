@@ -153,14 +153,13 @@
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="formMentionRelawan">Silahkan Pilih relawan yang akan memprospek pemilih</h5>
+                            <h5 class="modal-title" id="formMentionRelawan">Beri Keterangan Untuk Diprospek : </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            {{-- daftar relawan --}}
-                            <table id="table-daftar-relawan" class="table table-hover"cellspacing="0">
+                            {{-- <table id="table-daftar-relawan" class="table table-hover"cellspacing="0">
                                 <thead width="100%">
                                     <tr>
                                         <th>No</th>
@@ -179,7 +178,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
+                            </table> --}}
                             <form>
                                 @csrf
                                 <div class="form-group">
