@@ -26,12 +26,14 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-            <div class="col-md-6">
-                <canvas id="ChartPerWilayah" width="400" height="400"></canvas>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="ChartPerWilayah" width="400" height="400"></canvas>
+                </div>
             </div>
         </div>
 
@@ -41,38 +43,40 @@
         </div>
 
         {{-- Analisis lebih lanjut tiap RW --}}
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <h5>RW 1</h5>
-                <canvas id="AnalisisRW1" ></canvas>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <h5>RW 1</h5>
+                    <canvas id="AnalisisRW1" ></canvas>
+                </div>
+                <div class="col-md-4">
+                    <h5>RW 2</h5>
+                    <canvas id="AnalisisRW2" ></canvas>
+                </div>
+                <div class="col-md-4">
+                    <h5>RW 3</h5>
+                    <canvas id="AnalisisRW3" ></canvas>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>RW 2</h5>
-                <canvas id="AnalisisRW2" ></canvas>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <h5>RW 4</h5>
+                    <canvas id="AnalisisRW4" ></canvas>
+                </div>
+                <div class="col-md-4">
+                    <h5>RW 5</h5>
+                    <canvas id="AnalisisRW5" ></canvas>
+                </div>
+                <div class="col-md-4">
+                    <h5>RW 6</h5>
+                    <canvas id="AnalisisRW6" ></canvas>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>RW 3</h5>
-                <canvas id="AnalisisRW3" ></canvas>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <h5>RW 4</h5>
-                <canvas id="AnalisisRW4" ></canvas>
-            </div>
-            <div class="col-md-4">
-                <h5>RW 5</h5>
-                <canvas id="AnalisisRW5" ></canvas>
-            </div>
-            <div class="col-md-4">
-                <h5>RW 6</h5>
-                <canvas id="AnalisisRW6" ></canvas>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-4 offset-4">
-                <h5>RW 7</h5>
-                <canvas id="AnalisisRW7" ></canvas>
+            <div class="row mt-5">
+                <div class="col-md-4 offset-4">
+                    <h5>RW 7</h5>
+                    <canvas id="AnalisisRW7" ></canvas>
+                </div>
             </div>
         </div>
         {{-- //end analisis lebih lanjut --}}
