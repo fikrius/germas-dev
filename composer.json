@@ -7,15 +7,6 @@
         "laravel"
     ],
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../laravolt/",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "require": {
         "php": "^7.2",
         "consoletvs/charts": "6.*",
@@ -24,6 +15,7 @@
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
+        "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {

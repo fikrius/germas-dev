@@ -68,6 +68,9 @@ Route::middleware(['auth'])->group(function(){
 Route::middleware(['auth','relawan'])->group(function(){
 	Route::get('/notifikasi', 'NotifikasiRelawan@showAllNotifications');
 	Route::get('/notifikasi/sendMessage','NotifikasiRelawan@sendMessageToAdmin');
+
+	Route::get('/upload-foto', 'NotifikasiRelawan@upload');
+	Route::post('/proses-upload', 'NotifikasiRelawan@proses_upload');
 });
 
 //SEMUA BISA MENGAKSES
